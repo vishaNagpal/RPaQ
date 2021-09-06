@@ -1,0 +1,145 @@
+.App {
+  text-align: center;
+  font-size:14px;
+}
+
+body{
+  font-size:14px;
+}
+.App-logo {
+  border: 1px solid #e1e1e1;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  left: 50px;
+}
+
+h2{
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  padding: 8px 0;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.detailed {
+  white-space: normal;
+}
+
+.resetButton.button{
+  color: white;
+  background: none;
+}
+
+#preview{
+  height: 400px;
+    width: 400px;
+    border: 1px solid;
+}
+
+#keywords ,#chart-selected-list{
+  display: inline-block;
+  max-width: 500px;
+  font-size: 17px;
+  color: rebeccapurple;
+}
+
+#keywords span, #chart-selected-list span {
+  margin: 5px;
+  border: 1px solid #e1e1e1;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+#chart-selected-list{
+  position: absolute;
+  left: 12%;
+  top: 60%;
+  color: black;
+}
+
+.react-tabs__tab {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.button[disabled]{
+  background-color:#d1d1d1;
+}
+
+input#upload {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.chartWrapper{
+  width:400px;
+  background-color:white;
+  margin:0 auto;
+}
+
+.loaderWrapper {
+  margin-top: 80px;
+}
+
+.react-tabs__tab-list {
+  margin-bottom: 0;
+  border-color: #e1e1e1;
+}
+
+.wid-50{
+  width:50%;
+}
+
+.react-tabs__tab {
+  padding-top: 4px;
+  font-size: 16px;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.react-tabs__tab--selected{
+  background: #58d7ec14;
+  border-color: green!important;
+}
+
+.react-tabs__tab-panel--selected{
+  display:flex;
+}
+
+
+#resume-container{
+  margin-top:50px;
+}
