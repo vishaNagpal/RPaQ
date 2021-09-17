@@ -104,3 +104,4 @@ dist
 .tern-port
 src/server/data
 src/server/processed
+src/uploads

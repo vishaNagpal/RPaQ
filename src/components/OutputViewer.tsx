@@ -43,7 +43,9 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                     <TabPanel>
                         <article className='wid-50'>
                             <h2>Keywords</h2>
-                            {keywords && <p id='keywords'>{keywords.map(key => <span key={key}>{key}</span>)}</p>}
+                            {keywords && <p id='keywords'>{keywords.map(key => 
+                            <span key={key} data-text={key} onClick={(ev)=>{ev.currentTarget.classList.toggle('selected')}}>{key}</span>
+                            )}</p>}
                         </article>
                         {pieDataList && <ChartComponent pieDataList={pieDataList}
                             similarityObject={responseObject.similarityObject}
@@ -67,7 +69,7 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                     </TabPanel>
                 </Tabs>
                 {isRequestFromUpload && <article id='resume-container'>
-                    <iframe src="https://prod-heroku.s3.amazonaws.com/person_attachments/data/263/879/787/original/Aakanksha%27s%20Resume.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4XFBRPLS7JGNCAPQ%2F20210907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210907T061035Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=136344b2d2ce5fd25f180be7b1c432bbe29d3611c71aca5cf3bab1afbd113ec0" title='myFileFrame' width={1000} height={800} frameBorder={0} />
+                    <iframe src="https://www.docdroid.net/AbYdcGX/4-docx" title='myFileFrame' width={1000} height={800} frameBorder={0}/>
                 </article>
                 }
             </>

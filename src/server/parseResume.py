@@ -26,6 +26,8 @@ def read_pdf_file(filePath):
 
 
 def extract_skills(resume_text):
+    print("resume_text")
+    print(resume_text)
     nlp = spacy.load('en_core_web_sm')
     matcher = Matcher(nlp.vocab)
     nlp_text = nlp(resume_text)
@@ -38,8 +40,11 @@ def extract_skills(resume_text):
     skillset = []
 
     chunks = nlp_text.noun_chunks
+    print("printing chunks")
+    print(chunks)
     # check for bi-grams and tri-grams (example: machine learning)
     for token in chunks:
+        print(token)
         token = token.text.lower().strip()
         if token in skills:
             skillset.append(token)
