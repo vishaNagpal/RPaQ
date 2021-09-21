@@ -9,11 +9,12 @@ NO_OF_QUESTIONS = 5
 def fetchQuestions(skillsList,max_questions_req):
     questionsFound = 0
     questList = []
-    for n in range(1, 500):
+    for n in range(0, 500):
         text_file = open(BASE_PROCESS_FILE.format(n), "r")
         lines = text_file.readlines();
         for line in lines:
             kw = json.loads(line)["k"]
+            print(kw);
             ques = json.loads(line)["t"]
             match = any(item in skillsList for item in kw)
             if(match):

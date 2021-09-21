@@ -4,6 +4,7 @@ import { colorsList } from '../helper/Constants';
 import { IPieData, IResponseObject } from '../helper/interfaces';
 import ChartComponent from './ChartComponent';
 import QuestionViewer from './QuestionViewer';
+import ResumePreviewer from './ResumePreviewer';
 
 
 interface IProps{
@@ -14,6 +15,8 @@ interface IProps{
 
 const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,responseObject,isRequestFromUpload}:IProps) {
     const [pieDataList, updatePieData] = useState<IPieData[] | undefined>(undefined);
+    const [selectedCatList, updateCatList] = useState<string[]|null>(null);
+    const [isResumeVisible,showResume] = useState<boolean|null>(isRequestFromUpload);
 
     useEffect(()=>{
         setPieData();
@@ -40,14 +43,21 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                         <Tab>Keywords & Categories</Tab>
                         <Tab>Questions List</Tab>
                     </TabList>
-                    <TabPanel>
-                        <article className='wid-50'>
+                    <TabPanel className={isResumeVisible ? 'uploader-panel' : 'typed-panel'}>
+                        {isResumeVisible && <ResumePreviewer hideResume={()=>{showResume(false)}}/>}
+                        {isRequestFromUpload && !isResumeVisible && <span className='button show-hide' onClick={()=>showResume(true)}>Show Resume</span>}
+                        <section>
+                        <article className='wid-50 keywords-container'>
                             <h2>Keywords</h2>
-                            {keywords && <p id='keywords'>{keywords.map(key => <span key={key}>{key}</span>)}</p>}
+                            {keywords && <p id='keywords'>{keywords.map(key => 
+                            <span key={key} data-text={key} className={selectedCatList && selectedCatList.includes(key.toLowerCase()) ? 'selected' : ''} onClick={(ev)=>{ev.currentTarget.classList.toggle('selected')}}>{key}</span>
+                            )}</p>}
                         </article>
                         {pieDataList && <ChartComponent pieDataList={pieDataList}
-                            similarityObject={responseObject.similarityObject}
+                            similarityObject = {responseObject.similarityObject}
+                            onCategorySelection = {(words:string[])=>updateCatList(words)}
                         />}
+                        </section>
                     </TabPanel>
                     <TabPanel>
                         {responseObject.questionsList && responseObject.questionsList.length ?
@@ -66,10 +76,6 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                         }
                     </TabPanel>
                 </Tabs>
-                {isRequestFromUpload && <article id='resume-container'>
-                    <iframe src="https://prod-heroku.s3.amazonaws.com/person_attachments/data/263/879/787/original/Aakanksha%27s%20Resume.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4XFBRPLS7JGNCAPQ%2F20210907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210907T061035Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=136344b2d2ce5fd25f180be7b1c432bbe29d3611c71aca5cf3bab1afbd113ec0" title='myFileFrame' width={1000} height={800} frameBorder={0} />
-                </article>
-                }
             </>
         }
     

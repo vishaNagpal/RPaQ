@@ -12,6 +12,8 @@ body{
   border-radius: 5px;
   position: absolute;
   left: 50px;
+  color: white;
+  text-decoration: none;
 }
 
 h2{
@@ -80,13 +82,6 @@ h2{
   font-size: 14px;
 }
 
-#chart-selected-list{
-  position: absolute;
-  left: 12%;
-  top: 60%;
-  color: black;
-}
-
 .react-tabs__tab {
   font-size: 17px;
   font-weight: 600;
@@ -104,7 +99,7 @@ input#upload {
 }
 
 .chartWrapper{
-  width:400px;
+  width:300px;
   background-color:white;
   margin:0 auto;
 }
@@ -137,9 +132,4 @@ input#upload {
 
 .react-tabs__tab-panel--selected{
   display:flex;
-}
-
-
-#resume-container{
-  margin-top:50px;
 }

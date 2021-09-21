@@ -10,6 +10,6 @@
 {
   "frontend":["frontend","js","javascript","typescript","angular","react","pywebview","jquery","reactjs","scala","swift","ruby","perl","ruby","rubyonrails","html","css","sass","scss","less","vue","next.js","nextjs","ionic","bootstrap","page performace","html5","coffeescript","flutter","reactnative","preact","codekit","meteor","pwa","amp","ui","redux","flow"]
 },{
-    "management":["product owner", "management", "lead", "mentor", "scrum", "scrum master", "tech lead", "agile"]
+    "management":["product owner", "management", "lead", "mentor", "scrum", "scrum master", "tech lead", "agile","architect","manager","techno-manager","mentoring","design review","people management","release management","hld","lld","dld","technical trainings", "workshop trainings"]
 }
 ]

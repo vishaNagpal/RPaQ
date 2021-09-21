@@ -29,7 +29,7 @@ def upload_resume():
                 response_data['questions'] = questions
                 return jsonify(response_data)
             return jsonify(
-                    message="Some error occurred. Now debug to fix it up",
+                    message="Some error occurred or Keywords not found. Now debug to fix it up",
                     category="error",
                     status=404
                 )
