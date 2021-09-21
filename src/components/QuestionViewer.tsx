@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
+import Loader from 'react-loader-spinner';
 interface IProps {
     questionsData: {
         qId: string
@@ -11,7 +11,22 @@ interface IProps {
 }
 
 const QuestionViewer: React.FunctionComponent<IProps> = function ({ questionsData }) {
-    return <StyledTable>
+    const [isShowLoader, showLoader] = React.useState<boolean>(false);   
+    
+    useEffect(()=>{
+        showLoader(true);
+        const timerId = setTimeout(()=>{showLoader(false);clearTimeout(timerId)},1000);
+    },[])
+
+    return isShowLoader ?
+    <section className='loaderWrapper'>
+        <Loader
+            type="Circles"
+            color="#e1e1e1"
+            height={300}
+            width={300}
+        />
+    </section> : <StyledTable>
         <thead><tr>
             <th>Qid</th>
             <th>Question</th>

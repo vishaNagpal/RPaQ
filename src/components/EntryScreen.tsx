@@ -55,21 +55,25 @@ const EntryScreen: React.FunctionComponent = function (props) {
             updateUploadFlag(false);
             showLoader(true);
             setKeywordsList(values.split(","));
-            axios.get(baseApiPath + '/fetchQuestions?words=' + values + '&count=' + questionCount.current?.value)
-                .then((response: any) => {
-                    setResponseObject({
-                        ...responseObject,
-                        questionsList : response.data || []
-                    })
-                    showLoader(false);
-                })
-                .then(()=>{
-                    fetchSimilarity(values);
-                })
-                .catch(err => {
-                    showLoader(false);
-                })
+            fetchQuestions(values,true);
         }
+    }
+
+    const fetchQuestions = (words:string,isFetchSimilarity:boolean=false) =>{
+        axios.get(baseApiPath + '/fetchQuestions?words=' + words + '&count=' + questionCount.current?.value)
+        .then((response: any) => {
+            setResponseObject({
+                ...responseObject,
+                questionsList : response.data || []
+            })
+            showLoader(false);
+        })
+        .then(()=>{
+            isFetchSimilarity && fetchSimilarity(words);
+        })
+        .catch(err => {
+            showLoader(false);
+        })
     }
 
     const fetchSimilarity = (values:string) => {
@@ -86,6 +90,12 @@ const EntryScreen: React.FunctionComponent = function (props) {
         }
     }
 
+    const filterQuestions=(wordsList:string[])=>{
+        if(wordsList && wordsList.length){
+            fetchQuestions(wordsList.join(","));
+        }
+    }
+
     return (
         isShowLoader ?
             <section className='loaderWrapper'>
@@ -98,7 +108,12 @@ const EntryScreen: React.FunctionComponent = function (props) {
             </section>
             :
             responseObject ? 
-            <OutputViewer responseObject={responseObject} keywords={keywords} isRequestFromUpload={isRequestFromUpload}/>
+            <OutputViewer 
+                responseObject={responseObject} 
+                keywords={keywords} 
+                isRequestFromUpload={isRequestFromUpload}
+                filterQuestions={filterQuestions}
+                />
             :
             <section className='flex-box' id='entry-screen-wrapper'>
                 <article style={{ position: 'relative', borderRight: '1px solid #e1e1e1', margin: '0 50px', padding: '0 50px' }} className='wid-50'>

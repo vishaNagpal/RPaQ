@@ -142,3 +142,23 @@ ul {
     height: 30px;
   }
 }
+
+.questionsWrapper{
+  position: relative;
+  label{
+    font-weight: 500;
+  }
+  input{
+
+  }
+
+  .btn-filter{
+    position: absolute;
+    right: 11%;
+    top: 8px;
+  }
+}
+
+.ques-table-wrapper{
+  
+}
