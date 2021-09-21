@@ -97,3 +97,48 @@ ul {
     text-align: left;
   }
 }
+
+.keywords-container{
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.uploader-panel{
+  .keywords-container {
+    width: 95%;
+    margin-left: 10%;
+  }
+
+  #resume-container{
+    margin-top: 50px;
+    width: 700px;
+    margin-left: 5%;
+  }
+
+  iframe{
+    width: 100%;
+    border: 1px solid #e1e1e1;
+  }
+
+  .chartWrapper{
+    margin-top: 20px;
+    svg{
+      margin-top: -25px;
+      padding: 0;
+    }
+  }
+
+  .show-hide {
+    float: left;
+  }
+}
+
+.typed-panel{
+  > section{
+    display: flex;
+    width: 100%;
+  }
+  .show-hide {
+    display: inline-block;
+    height: 30px;
+  }
+}

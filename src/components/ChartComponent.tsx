@@ -6,21 +6,29 @@ import { categoryList, colorsList } from '../helper/Constants';
 interface IProps {
     pieDataList: IPieData[]
     similarityObject?: Record<string, ISimilarityItem | null> | null
+    onCategorySelection:Function
+
 }
 
-const ChartComponent: React.FunctionComponent<IProps> = function ({ similarityObject, pieDataList }: IProps) {
+const ChartComponent: React.FunctionComponent<IProps> = function ({ similarityObject, pieDataList,onCategorySelection }: IProps) {
     const [selected, setSelected] = useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = useState<string>('');
     let selectedObject = similarityObject && selected ? similarityObject[selected] : null;
 
     useEffect(() => {
-        setSelected(null)
-    }, [similarityObject])
+        setSelected(null);
+        setSelectedColor('');
+    }, [similarityObject]);
+
+    useEffect(() => {
+        selectedObject = similarityObject && selected ? similarityObject[selected] : null;
+    }, [selected]);
 
     return (<article className='chartWrapper'>
         <h2>Similarity With Categories</h2>
         <ul>
             {categoryList.map((cat,index)=>{
-                return (<li><span className='box' style={{backgroundColor:colorsList[index]}}/>{cat}</li>)
+                return (<li><span className='box' key={`box-${cat}`} style={{backgroundColor:colorsList[index]}}/>{cat}</li>)
             })}
         </ul>
         <PieChart
@@ -40,14 +48,16 @@ const ChartComponent: React.FunctionComponent<IProps> = function ({ similarityOb
                 textTransform: 'capitalize',
             }}
             onClick={(ev, index) => {
-                setSelected(categoryList[index])
+                setSelected(categoryList[index]);
+                setSelectedColor(colorsList[index]);
+                similarityObject && onCategorySelection(similarityObject[categoryList[index]]?.similarityList);
             }}
         />
         <div id='chart-selected-list'>
             {selectedObject ? <>
-                <h2>Selected Category: <span style={{textTransform:'capitalize'}}>{selected}</span></h2>
+                <h2>Selected Category: <span style={{textTransform:'capitalize',color:selectedColor,borderColor:selectedColor}}>{selected}</span></h2>
                 {
-                    selectedObject.similarityList.map(item => <span key={`item-${item}`}>{item.charAt(0).toUpperCase() + item.substr(1, item.length)}</span>)
+                    selectedObject.similarityList.map(item => <span key={`chart-${item}`}>{item.charAt(0).toUpperCase() + item.substr(1, item.length)}</span>)
                 }
 
             </> : null}

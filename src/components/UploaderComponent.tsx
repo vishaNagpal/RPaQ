@@ -149,6 +149,7 @@ const UploaderComponent: React.FunctionComponent = function () {
                         </article>
                         {pieDataList && <ChartComponent pieDataList={pieDataList}
                             similarityObject={similarityObject}
+                            onCategorySelection={()=>{}}
                         />}
                     </TabPanel>
                     <TabPanel>

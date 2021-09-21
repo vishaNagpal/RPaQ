@@ -4,6 +4,7 @@ import { colorsList } from '../helper/Constants';
 import { IPieData, IResponseObject } from '../helper/interfaces';
 import ChartComponent from './ChartComponent';
 import QuestionViewer from './QuestionViewer';
+import ResumePreviewer from './ResumePreviewer';
 
 
 interface IProps{
@@ -14,6 +15,8 @@ interface IProps{
 
 const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,responseObject,isRequestFromUpload}:IProps) {
     const [pieDataList, updatePieData] = useState<IPieData[] | undefined>(undefined);
+    const [selectedCatList, updateCatList] = useState<string[]|null>(null);
+    const [isResumeVisible,showResume] = useState<boolean|null>(isRequestFromUpload);
 
     useEffect(()=>{
         setPieData();
@@ -40,16 +43,21 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                         <Tab>Keywords & Categories</Tab>
                         <Tab>Questions List</Tab>
                     </TabList>
-                    <TabPanel>
-                        <article className='wid-50'>
+                    <TabPanel className={isResumeVisible ? 'uploader-panel' : 'typed-panel'}>
+                        {isResumeVisible && <ResumePreviewer hideResume={()=>{showResume(false)}}/>}
+                        {isRequestFromUpload && !isResumeVisible && <span className='button show-hide' onClick={()=>showResume(true)}>Show Resume</span>}
+                        <section>
+                        <article className='wid-50 keywords-container'>
                             <h2>Keywords</h2>
                             {keywords && <p id='keywords'>{keywords.map(key => 
-                            <span key={key} data-text={key} onClick={(ev)=>{ev.currentTarget.classList.toggle('selected')}}>{key}</span>
+                            <span key={key} data-text={key} className={selectedCatList && selectedCatList.includes(key.toLowerCase()) ? 'selected' : ''} onClick={(ev)=>{ev.currentTarget.classList.toggle('selected')}}>{key}</span>
                             )}</p>}
                         </article>
                         {pieDataList && <ChartComponent pieDataList={pieDataList}
-                            similarityObject={responseObject.similarityObject}
+                            similarityObject = {responseObject.similarityObject}
+                            onCategorySelection = {(words:string[])=>updateCatList(words)}
                         />}
+                        </section>
                     </TabPanel>
                     <TabPanel>
                         {responseObject.questionsList && responseObject.questionsList.length ?
@@ -68,10 +76,6 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                         }
                     </TabPanel>
                 </Tabs>
-                {isRequestFromUpload && <article id='resume-container'>
-                    <iframe src="https://www.docdroid.net/AbYdcGX/4-docx" title='myFileFrame' width={1000} height={800} frameBorder={0}/>
-                </article>
-                }
             </>
         }
     
