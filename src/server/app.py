@@ -34,7 +34,7 @@ def upload_resume():
                     status=404
                 )
     except IOError:
-        print("Error in uploaded resume: ", path)
+        print("Error in uploaded resume.")
 
 
 @app.route('/fetchSimilarity')
@@ -56,13 +56,13 @@ def fetch_questions():
     return jsonify(response_data)
 
 
-@app.route('/get-files/<path:path>',methods = ['GET'])
-def get_files(path):
-    base_path = '/Users/vishakha.nagpal/development/my_workspace/RAPQ/src/uploads'
-    try:
-        return send_from_directory(base_path, path)
-    except FileNotFoundError:
-        abort(404)
+# @app.route('/get-files/<path:path>',methods = ['GET'])
+# def get_files(path):
+#     base_path = '/Users/vishakha.nagpal/development/my_workspace/RAPQ/src/uploads'
+#     try:
+#         return send_from_directory(base_path, path)
+#     except FileNotFoundError:
+#         abort(404)
 
 @app.route('/')
 def home():

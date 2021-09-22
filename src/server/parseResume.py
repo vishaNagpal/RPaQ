@@ -10,6 +10,7 @@ from getSimilarity import *
 DIR_PATH = '/Users/vishakha.nagpal/development/my_workspace/RPaQ/src/server';
 uploads_dir = '/Users/vishakha.nagpal/development/my_workspace/RPaQ/src/uploads'
 
+
 def extract(resume):
     temp = docx2txt.process(resume)
     text = [line.replace('\t', ' ') for line in temp.split('\n') if line]
@@ -60,18 +61,19 @@ def extract_skills(resume_text):
 def find_similarity(keywords):
     getSimilarity(keywords)
 
+
 def getWordsFromResume(file):
     try:
-        filename = file.filename;
+        filename = file.filename
         file_extension = filename.split('.')[1]
-        filePath = os.path.join(uploads_dir,filename);
+        filePath = os.path.join(uploads_dir, filename)
         file.save(filePath)
-        print('reading resume...'+filePath)
+        print('reading resume...' + filePath)
         content = file_extension == 'pdf' and read_pdf_file(filePath) or extract(filePath)
         print('resume parsed successfully.. fetching skills now')
         keywords = extract_skills(content)
         print(keywords)
-        return keywords;
+        return keywords
     except IOError:
         print("Error opening or reading input file")
         return ''
