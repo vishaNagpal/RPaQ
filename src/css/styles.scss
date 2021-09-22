@@ -142,3 +142,22 @@ ul {
     height: 30px;
   }
 }
+
+.questionsWrapper{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  label{
+    font-weight: 500;
+  }
+
+  .btn-filter{
+    position: absolute;
+    right: 11%;
+    top: 8px;
+  }
+}
+
+.ques-table-wrapper{
+  
+}

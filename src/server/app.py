@@ -50,8 +50,7 @@ def fetch_similarity():
 def fetch_questions():
     words = request.args.get('words');
     count = request.args.get('count') or 5;
-    print('printing count')
-    print(count);
+    words = words.split(",")
     response_data = fetchQuestions(words,count);
     print('response_data')
     return jsonify(response_data)
