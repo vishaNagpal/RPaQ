@@ -9,29 +9,31 @@ NO_OF_QUESTIONS = 5
 def fetchQuestions(skillsList,max_questions_req):
     questionsFound = 0
     questList = []
-    for n in range(0, 500):
+    print(skillsList)
+    for n in range(0, 600):
         text_file = open(BASE_PROCESS_FILE.format(n), "r")
         lines = text_file.readlines();
         for line in lines:
             kw = json.loads(line)["k"]
-            print(kw);
             ques = json.loads(line)["t"]
             match = any(item in skillsList for item in kw)
             if(match):
+                print(kw);
                 questionsFound = questionsFound+1
                 questList.append({
                     'qId':json.loads(line)["i"],
                     'ques' : ques
                 })
-                if questionsFound == max_questions_req:
-                    break;
+            if questionsFound == NO_OF_QUESTIONS:
+                break;
         text_file.close()
-        if questionsFound == max_questions_req:
+        if questionsFound == NO_OF_QUESTIONS:
             break;
     return questList;
 
-# if __name__ == '__main__':
-#     words =  ['loops','pool','posting','graph']
-#     ques = fetchQuestions(words,1)
-#     print(ques)
+if __name__ == '__main__':
+    # words =  ['loops','pool','posting','graph']
+    words = ['javascript', 'typescript', 'flow', 'redux']
+    ques = fetchQuestions(['microservices'],1)
+    print(ques)
 

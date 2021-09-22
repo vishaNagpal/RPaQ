@@ -12,9 +12,10 @@ interface IProps{
     keywords:string[]
     isRequestFromUpload : boolean|null
     filterQuestions:Function
+    resumeName:string
 }
 
-const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,responseObject,isRequestFromUpload,filterQuestions}:IProps) {
+const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,responseObject,isRequestFromUpload,filterQuestions,resumeName}:IProps) {
     const [pieDataList, updatePieData] = useState<IPieData[] | undefined>(undefined);
     const [selectedCatList, updateCatList] = useState<string[]|null>(null);
     const [isResumeVisible,showResume] = useState<boolean|null>(isRequestFromUpload);
@@ -52,10 +53,10 @@ const OutputViewer: React.FunctionComponent<IProps> = function ({keywords,respon
                 <Tabs>
                     <TabList>
                         <Tab>Keywords & Categories</Tab>
-                        <Tab>Questions List</Tab>
+                        <Tab onClick={()=>{filterQuestions(selectedCatList && selectedCatList.length ? selectedCatList : keywords)}}>Questions List</Tab>
                     </TabList>
                     <TabPanel className={isResumeVisible ? 'uploader-panel' : 'typed-panel'}>
-                        {isResumeVisible && <ResumePreviewer hideResume={()=>{showResume(false)}}/>}
+                        {isResumeVisible && <ResumePreviewer hideResume={()=>{showResume(false)}} resumeName={resumeName}/>}
                         {isRequestFromUpload && !isResumeVisible && <span className='button show-hide' onClick={()=>showResume(true)}>Show Resume</span>}
                         <section>
                         <article className='wid-50 keywords-container'>

@@ -17,6 +17,7 @@ const EntryScreen: React.FunctionComponent = function (props) {
     const [responseObject, setResponseObject] = useState<IResponseObject | null>(null);
     const [keywords, setKeywordsList] = useState<string[]>([]);
     const [isRequestFromUpload,updateUploadFlag] = useState<boolean|null>(null);
+    const [resumeName,setResumeName] = useState<string>('');
 
     const uploadResume = (event: any) => {
         const fileObj = uploadRef.current?.files;
@@ -28,6 +29,7 @@ const EntryScreen: React.FunctionComponent = function (props) {
         showLoader(true);
         const formData = new FormData();
         formData.append('file', fileObj[0]);
+        setResumeName(fileObj[0].name);
         axios.post(baseApiPath + '/uploadResume', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -60,7 +62,7 @@ const EntryScreen: React.FunctionComponent = function (props) {
     }
 
     const fetchQuestions = (words:string,isFetchSimilarity:boolean=false) =>{
-        axios.get(baseApiPath + '/fetchQuestions?words=' + words + '&count=' + questionCount.current?.value)
+        axios.get(baseApiPath + '/fetchQuestions?words=' + words.toLowerCase() + '&count=' + questionCount.current?.value)
         .then((response: any) => {
             setResponseObject({
                 ...responseObject,
@@ -113,6 +115,7 @@ const EntryScreen: React.FunctionComponent = function (props) {
                 keywords={keywords} 
                 isRequestFromUpload={isRequestFromUpload}
                 filterQuestions={filterQuestions}
+                resumeName={resumeName}
                 />
             :
             <section className='flex-box' id='entry-screen-wrapper'>

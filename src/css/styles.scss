@@ -145,11 +145,10 @@ ul {
 
 .questionsWrapper{
   position: relative;
+  display: inline-block;
+  width: 100%;
   label{
     font-weight: 500;
-  }
-  input{
-
   }
 
   .btn-filter{

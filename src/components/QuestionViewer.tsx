@@ -15,8 +15,10 @@ const QuestionViewer: React.FunctionComponent<IProps> = function ({ questionsDat
     
     useEffect(()=>{
         showLoader(true);
-        const timerId = setTimeout(()=>{showLoader(false);clearTimeout(timerId)},1000);
-    },[])
+        const timerId = setTimeout(()=>{
+            showLoader(false);clearTimeout(timerId)
+        },1000);
+    },[questionsData])
 
     return isShowLoader ?
     <section className='loaderWrapper'>
@@ -30,8 +32,9 @@ const QuestionViewer: React.FunctionComponent<IProps> = function ({ questionsDat
         <thead><tr>
             <th>Qid</th>
             <th>Question</th>
-            <th>Difficulty Level</th>
+            <th>Level</th>
             <th>Link</th>
+            <th>Time to solve(mins)</th>
         </tr>
         </thead>
         <tbody>
@@ -44,6 +47,7 @@ const QuestionViewer: React.FunctionComponent<IProps> = function ({ questionsDat
                         </td>
                         <td>{ques.level_of_difficulty}</td>
                         <td>{ques.gist_link}</td>
+                        <td></td>
                     </tr>
                 })
             }
